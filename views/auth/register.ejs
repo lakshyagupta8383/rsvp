@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Register</h2>
+    
+    <% if (errors && errors.length > 0) { %>
+      <ul>
+        <% errors.forEach(function(error) { %>
+          <li class="alert alert-danger"><%= error.msg %></li>
+        <% }); %>
+      </ul>
+    <% } %>
+    
+    <% var role = (typeof role !== 'undefined') ? role : 'guest'; %>
+    <% var guestSelected = role === 'guest' ? 'selected' : ''; %>
+    <% var organizerSelected = role === 'organizer' ? 'selected' : ''; %>
+    
+    <form action="/auth/register" method="POST">
+      <label>Username:</label>
+      <input type="text" name="username" value="<%= typeof username !== 'undefined' ? username : '' %>" required />
+      
+      <label>Email:</label>
+      <input type="email" name="email" value="<%= typeof email !== 'undefined' ? email : '' %>" required />
+      
+      <label>Password:</label>
+      <input type="password" name="password" required />
+      
+      <label>Confirm Password:</label>
+      <input type="password" name="password2" required />
+      
+      <label>Role:</label>
+      <select name="role">
+        <option value="guest" <%= guestSelected %>>Guest</option>
+        <option value="organizer" <%= organizerSelected %>>Organizer</option>
+      </select>
+      
+      <button type="submit">Register</button>
+    </form>
+    
+    <p>Already have an account? <a href="/auth/login">Login here</a></p>
+  </div>
+</body>
+</html>

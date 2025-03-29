@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Invitations</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Your Invitations</h2>
+    
+    <% if (invitations && invitations.length > 0) { %>
+      <ul>
+        <% invitations.forEach(function(invitation) { %>
+          <li>
+            <% if (invitation.eventId) { %>
+              <strong>Event:</strong> <%= invitation.eventId.title %><br/>
+              <strong>Description:</strong> <%= invitation.eventId.description %><br/>
+              <strong>Date:</strong> 
+<% if (invitation.eventId.date) { %>
+  <%= invitation.eventId.date.toDateString() %>
+<% } else { %>
+  <em>No date</em>
+<% } %>
+<br/>
+
+              <strong>Location:</strong> <%= invitation.eventId.location %><br/>
+              <strong>Dress Code:</strong> <%= invitation.eventId.dressCode %><br/>
+              <strong>Theme:</strong> <%= invitation.eventId.theme %><br/>
+            <% } else { %>
+              <strong>Event ID:</strong> <%= invitation.eventId %><br/>
+            <% } %>
+            <strong>Status:</strong> <%= invitation.status %><br/>
+            <% if(invitation.customMessage) { %>
+              <strong>Message:</strong> <%= invitation.customMessage %><br/>
+            <% } %>
+            <a href="<%= invitation.invitationLink %>">Respond</a>
+          </li>
+        <% }); %>
+      </ul>
+    <% } else { %>
+      <p>No invitations found.</p>
+    <% } %>
+  </div>
+</body>
+</html>

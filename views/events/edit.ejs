@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Event</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Edit Event</h2>
+    <form action="/events/edit/<%= event._id %>" method="POST">
+      <label>Title:</label>
+      <input type="text" name="title" value="<%= event.title %>" required/>
+      
+      <label>Description:</label>
+      <textarea name="description"><%= event.description %></textarea>
+      
+      <label>Date:</label>
+      <input type="date" name="date" value="<%= event.date.toISOString().substring(0,10) %>" required/>
+      
+      <label>Location:</label>
+      <input type="text" name="location" value="<%= event.location %>"/>
+      
+      <label>Dress Code:</label>
+      <input type="text" name="dressCode" value="<%= event.dressCode %>"/>
+      
+      <label>Theme:</label>
+      <input type="text" name="theme" value="<%= event.theme %>"/>
+      
+      <button type="submit">Update Event</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Event Management App</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <% if(user) { %>
+        <span>Logged in as <%= user.username %></span> | <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a> | <a href="/auth/register">Register</a>
+      <% } %>
+    </nav>
+  </header>
+  <div class="container">
+    <h1>Welcome to the Event Management App</h1>
+    <p>This is the home page.</p>
+  </div>
+</body>
+</html>

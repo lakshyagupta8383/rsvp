@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send Invitation</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script>
+    function toggleInvitationType(type) {
+      if(type === 'new') {
+        document.getElementById('new-invitation').style.display = 'block';
+        document.getElementById('registered-invitation').style.display = 'none';
+      } else {
+        document.getElementById('new-invitation').style.display = 'none';
+        document.getElementById('registered-invitation').style.display = 'block';
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>Send Invitation</h2>
+    
+    <% if (user && user.role === 'organizer') { %>
+      <% var guests = typeof guests !== 'undefined' ? guests : []; %>
+      
+      <!-- Toggle Option -->
+      <div>
+        <label>Invitation Type:</label>
+        <input type="radio" name="invitationType" value="new" checked onclick="toggleInvitationType('new')" /> New Email
+        <input type="radio" name="invitationType" value="registered" onclick="toggleInvitationType('registered')" /> Registered Guest
+      </div>
+      
+      <!-- New Email Section -->
+      <div id="new-invitation" class="toggle-section">
+        <form action="/invitations/send" method="POST">
+          <label>Event:</label>
+          <select name="eventId" required>
+            <% events.forEach(function(event){ %>
+              <option value="<%= event._id %>"><%= event.title %></option>
+            <% }); %>
+          </select>
+          <label>Guest Email:</label>
+          <input type="email" name="guestEmail" required />
+          <label>Custom Message:</label>
+          <textarea name="customMessage"></textarea>
+          <button type="submit">Send Invitation</button>
+        </form>
+      </div>
+      
+      <!-- Registered Guest Section -->
+      <div id="registered-invitation" class="toggle-section" style="display:none;">
+        <form action="/invitations/send" method="POST">
+          <label>Event:</label>
+          <select name="eventId" required>
+            <% events.forEach(function(event){ %>
+              <option value="<%= event._id %>"><%= event.title %></option>
+            <% }); %>
+          </select>
+          <label>Registered Guest:</label>
+          <select name="guestEmail" required>
+            <% if (guests.length > 0) { %>
+              <% guests.forEach(function(guest){ %>
+                <option value="<%= guest.email %>"><%= guest.username %> (<%= guest.email %>)</option>
+              <% }); %>
+            <% } else { %>
+              <option value="">No registered guests available</option>
+            <% } %>
+          </select>
+          <label>Custom Message:</label>
+          <textarea name="customMessage"></textarea>
+          <button type="submit">Send Invitation</button>
+        </form>
+      </div>
+      
+      <h3>Bulk Upload Invitations</h3>
+      <form action="/invitations/bulk-upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="csvFile" accept=".csv" required/>
+        <button type="submit">Upload CSV</button>
+      </form>
+    
+    <% } else { %>
+      <p class="alert alert-danger">You do not have permission to send invitations.</p>
+    <% } %>
+  </div>
+</body>
+</html>

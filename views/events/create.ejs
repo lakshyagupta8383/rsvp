@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Event</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Create Event</h2>
+    <form action="/events/create" method="POST">
+      <label>Title:</label>
+      <input type="text" name="title" required/>
+      
+      <label>Description:</label>
+      <textarea name="description"></textarea>
+      
+      <label>Date:</label>
+      <input type="date" name="date" required/>
+      
+      <label>Location:</label>
+      <input type="text" name="location"/>
+      
+      <label>Dress Code:</label>
+      <input type="text" name="dressCode"/>
+      
+      <label>Theme:</label>
+      <input type="text" name="theme"/>
+      
+      <button type="submit">Create Event</button>
+    </form>
+  </div>
+</body>
+</html>

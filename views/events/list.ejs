@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Events</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <% if(user) { %>
+        <span>Logged in as <%= user.username %></span> | <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a> | <a href="/auth/register">Register</a>
+      <% } %>
+    </nav>
+  </header>
+  <div class="container">
+    <h2>Your Events</h2>
+    
+    <% if(user && user.role === 'organizer') { %>
+      <a href="/events/create">Create New Event</a>
+    <% } %>
+    
+    <ul>
+      <% events.forEach(function(event){ %>
+        <li>
+          <strong><%= event.title %></strong> on <%= new Date(event.date).toDateString() %>
+          <a href="/events/edit/<%= event._id %>">Edit</a>
+          <form action="/events/delete/<%= event._id %>" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+          
+          <!-- Only show the Send Invitation link if user is an organizer -->
+          <% if(user && user.role === 'organizer') { %>
+            <a href="/invitations/send?eventId=<%= event._id %>">Send Invitation</a>
+          <% } %>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+</body>
+</html>

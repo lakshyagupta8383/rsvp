@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RSVP</title>
+</head>
+<body>
+  <h2>RSVP for Event <%= eventId %></h2>
+  <form action="/invitations/respond/<%= eventId %>" method="POST">
+    <label>Response:</label>
+    <select name="response">
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+      <option value="Maybe">Maybe</option>
+    </select><br/>
+    <label>Comments:</label>
+    <textarea name="comments"></textarea><br/>
+    <button type="submit">Submit RSVP</button>
+  </form>
+</body>
+</html>

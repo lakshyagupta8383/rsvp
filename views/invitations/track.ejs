@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Invitations</title>
+</head>
+<body>
+  <h2>Invitations</h2>
+  <a href="/invitations/send">Send New Invitation</a>
+  <ul>
+    <% invitations.forEach(function(invitation){ %>
+      <li>
+        Event ID: <%= invitation.eventId %> - Guest Email: <%= invitation.guestEmail %> - Status: <%= invitation.status %>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
